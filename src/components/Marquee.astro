@@ -1,0 +1,16 @@
+---
+import { labs } from '@/data/labs';
+const items = ['Mix que gira', 'Preço que fecha', 'Entrega no prazo', 'Pós-venda de verdade', `${labs.length} laboratórios`];
+// duplicado para o loop ser contínuo (o GSAP desloca -50%)
+const loop = [...items, ...items];
+---
+<section aria-label="Princípios de atendimento" class="overflow-hidden border-y border-line py-8">
+  <div data-marquee class="flex w-max flex-nowrap items-center will-change-transform">
+    {loop.map((t) => (
+      <>
+        <span class="font-display text-[clamp(26px,3.25vw,52px)] leading-none uppercase tracking-[-0.01em] text-bone">{t}</span>
+        <span class="mx-8 size-2.5 flex-none rounded-full bg-coral" aria-hidden="true"></span>
+      </>
+    ))}
+  </div>
+</section>

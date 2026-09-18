@@ -1,0 +1,46 @@
+---
+import { site, waHref, emailHref } from '@/data/site';
+---
+<footer id="contato" class="relative overflow-hidden border-t border-line px-gutter pt-section-lg">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute bottom-[-34%] left-1/2 h-[min(720px,90vw)] w-[min(1100px,130vw)] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(125,78,87,0.40),rgba(214,104,83,0.14)_46%,rgba(11,14,19,0)_72%)]"
+  ></div>
+  <div class="relative">
+    <div data-anim class="flex items-center gap-3">
+      <span class="size-2 rounded-full bg-coral"></span>
+      <span class="eyebrow">Vamos fechar</span>
+    </div>
+    <h2 data-anim class="display-h2 mt-6 max-w-[18ch] text-[clamp(38px,7vw,110px)]">Tem uma lista pra cotar?</h2>
+    <p data-anim class="lead mt-8 max-w-[44ch]">É aí que eu começo. Respondo toda mensagem — de segunda a sábado.</p>
+
+    <a
+      data-anim
+      href={waHref}
+      target="_blank"
+      rel="noopener"
+      class="mt-12 inline-flex items-baseline gap-4 font-sans text-[clamp(24px,4.4vw,72px)] font-semibold leading-[1.05] tracking-[-0.02em] text-bone no-underline [word-break:break-word] transition-[transform,color] duration-[340ms] hover:translate-x-3.5 hover:text-coral"
+    >{site.whatsappDisplay} <span class="text-coral">↗</span></a>
+    <a
+      data-anim
+      href={emailHref}
+      class="mt-5 inline-flex items-baseline gap-3 font-sans text-[clamp(15px,1.6vw,22px)] font-medium leading-[1.3] text-mist no-underline [word-break:break-all] transition-[transform,color] duration-[340ms] hover:translate-x-2.5 hover:text-bone"
+    >{site.email} <span class="text-coral">↗</span></a>
+
+    <div class="mt-section-lg grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] items-start gap-10 border-t border-line py-12">
+      <div class="min-w-0">
+        <p class="m-0 font-display text-[clamp(26px,3.25vw,52px)] leading-none uppercase tracking-[-0.01em] text-bone">{site.name}</p>
+        <p class="eyebrow mt-4 mb-0 text-[12.5px] leading-[1.4]">{site.role}</p>
+      </div>
+      <div class="flex min-w-0 items-center gap-3.5">
+        <span class="flex items-center rounded-md bg-white px-[11px] py-[7px]">
+          <img src="/assets/logo-pbmed.webp" alt="Grupo PBMED Distribuidora" class="h-[18px] w-auto object-contain" />
+        </span>
+        <span class="font-sans text-[13.5px] leading-[1.5] text-mist">Distribuidora farmacêutica</span>
+      </div>
+      <p class="m-0 justify-self-end text-right font-sans text-[12.5px] font-medium leading-[1.5] uppercase tracking-[0.18em] text-mist">
+        © {new Date().getFullYear()} · {site.updatedLabel}
+      </p>
+    </div>
+  </div>
+</footer>

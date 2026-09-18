@@ -1,0 +1,86 @@
+---
+import SectionHead from '@/components/SectionHead.astro';
+import { labs, catalogById, catalogHref, labLogo } from '@/data/labs';
+
+const INITIAL_ACTIVE = 1;
+const panels = labs.map((lab) => {
+  const href = catalogHref(catalogById(lab.catalog));
+  return {
+    ...lab,
+    href,
+    logo: labLogo(lab.slug),
+    title: `${lab.name} — ${href ? 'catálogo em PDF' : 'catálogo sob consulta'}`,
+    label: `${lab.name} · ${href ? 'PDF ↓' : 'sob consulta'}`,
+  };
+});
+---
+<section id="portfolio" class="border-t border-line px-gutter py-section">
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <SectionHead eyebrow="Laboratórios representados" title="O portfólio que eu levo" maxCh={14} />
+    <span data-anim class="eyebrow">{labs.length} / Indústrias</span>
+  </div>
+
+  <div data-anim data-lab-panels class="mt-[clamp(28px,4vw,56px)] flex w-full items-center justify-center gap-1 overflow-hidden">
+    {panels.map((p, i) => (
+      <a
+        href={p.href}
+        target={p.href ? '_blank' : undefined}
+        rel={p.href ? 'noopener' : undefined}
+        title={p.title}
+        tabindex="0"
+        data-panel
+        data-active={i === INITIAL_ACTIVE ? '' : undefined}
+        class:list={[
+          'group relative box-border flex h-[clamp(240px,42vh,384px)] min-w-[18px] flex-[0_1_auto] cursor-pointer items-center justify-center overflow-hidden rounded-3xl no-underline',
+          'w-[clamp(26px,3.6vw,80px)] p-[7px] shadow-[0_0_0_1px_rgba(243,241,234,0.14)]',
+          'transition-[width,padding] duration-300 ease-in-out',
+          'data-active:w-[clamp(160px,30vw,384px)] data-active:p-[30px] data-active:shadow-[0_0_0_1px_#E3261A]',
+          p.dark ? 'bg-panel-dark' : 'bg-white',
+        ]}
+      >
+        <img
+          src={p.logo}
+          alt={p.name}
+          loading="lazy"
+          class="max-h-[38%] max-w-full object-contain transition-[max-height] duration-300 ease-in-out group-data-active:max-h-[58%]"
+        />
+        <span
+          aria-hidden="true"
+          class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(11,14,19,0.88),rgba(11,14,19,0)_55%)] opacity-0 transition-opacity duration-300 group-data-active:opacity-100"
+        ></span>
+        <span
+          class="pointer-events-none absolute inset-x-3.5 bottom-4 text-center font-sans text-[11px] font-medium leading-[1.4] uppercase tracking-[0.16em] text-bone opacity-0 transition-opacity duration-300 group-data-active:opacity-100"
+        >{p.label}</span>
+      </a>
+    ))}
+  </div>
+
+  <p class="mt-[clamp(16px,2vw,24px)] mb-0 font-sans text-xs font-medium leading-[1.4] uppercase tracking-[0.18em] text-steel">
+    Passe o mouse para abrir · clique no painel aberto para baixar o catálogo
+  </p>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-lab-panels]');
+  if (root) {
+    const panels = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-panel]'));
+    const activate = (el: HTMLElement) => {
+      if (el.hasAttribute('data-active')) return;
+      panels.forEach((p) => p.removeAttribute('data-active'));
+      el.setAttribute('data-active', '');
+    };
+    panels.forEach((p) => {
+      p.addEventListener('mouseenter', () => activate(p));
+      p.addEventListener('focus', () => activate(p));
+      p.addEventListener('click', (e) => {
+        // primeiro clique abre o painel; segundo (já aberto) segue o link
+        if (!p.hasAttribute('data-active')) {
+          e.preventDefault();
+          activate(p);
+        } else if (!p.getAttribute('href')) {
+          e.preventDefault();
+        }
+      });
+    });
+  }
+</script>

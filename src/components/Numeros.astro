@@ -1,0 +1,30 @@
+---
+import { labs, availableCatalogs } from '@/data/labs';
+const stats = [
+  { value: String(labs.length), label: 'Laboratórios representados' },
+  { value: String(availableCatalogs().length || '—'), label: 'Catálogos vigentes em PDF' },
+  { value: '6x', label: 'Dias de atendimento por semana' },
+  { value: 'PB', label: 'João Pessoa e região' },
+];
+---
+<section id="numeros" class="border-t border-line px-gutter py-section">
+  <div data-anim class="flex items-center gap-3">
+    <span class="size-2 rounded-full bg-coral"></span>
+    <span class="eyebrow">Em números</span>
+  </div>
+  <h2 data-anim class="display-h2 mt-6 max-w-[18ch] leading-none">O que eu coloco na mesa</h2>
+  <div data-anim-group class="mt-[clamp(32px,4vw,64px)] grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] border-t border-line">
+    {stats.map((s, i) => (
+      <div
+        data-anim
+        class:list={[
+          'group flex flex-col gap-4 border-b border-line py-[clamp(28px,3vw,48px)]',
+          { 'border-l pl-[clamp(16px,2vw,32px)]': i > 0 },
+        ]}
+      >
+        <span class="font-display text-[clamp(46px,6.4vw,104px)] leading-none tracking-[-0.01em] text-bone transition-colors duration-[340ms] group-hover:text-coral">{s.value}</span>
+        <span class="max-w-[20ch] font-sans text-base leading-[1.5] uppercase tracking-[0.14em] text-mist">{s.label}</span>
+      </div>
+    ))}
+  </div>
+</section>

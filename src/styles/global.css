@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────────── */
+@theme {
+  --color-ink: #0B0E13;
+  --color-bone: #F3F1EA;
+  --color-coral: #E3261A;
+  --color-coral-light: #F0503F;
+  --color-mist: #8B8F98;
+  --color-mist-light: #A9AEB8;
+  --color-steel: #9BA6B8;
+  --color-card: #111722;
+  --color-panel-dark: #16202E;
+  --color-line: rgba(243, 241, 234, 0.1);
+  --color-line-strong: rgba(243, 241, 234, 0.22);
+
+  --font-display: "Anton", sans-serif;
+  --font-sans: "Onest", system-ui, sans-serif;
+
+  /* espaçamentos fluidos usados em toda a página */
+  --spacing-gutter: clamp(16px, 4vw, 40px);
+  --spacing-section: clamp(48px, 7vw, 120px);
+  --spacing-section-lg: clamp(56px, 9vw, 144px);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base ──────────────────────────────────────────────────────── */
+html, body {
+  margin: 0;
+  background: var(--color-ink);
+}
+body {
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+::selection { background: var(--color-coral); color: var(--color-ink); }
+img { display: block; max-width: 100%; }
+
+/* ── Utilitários de tipografia recorrentes ─────────────────────── */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-mist);
+}
+
+@utility display-h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5.4vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-bone);
+  text-wrap: balance;
+}
+
+@utility lead {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(17px, 1.4vw, 22px);
+  line-height: 1.45;
+  color: var(--color-mist);
+  text-wrap: pretty;
+}
+
+/* elementos revelados pelo GSAP começam invisíveis só quando o JS
+   estiver ativo — sem JS a página aparece inteira */
+html.js [data-anim] { opacity: 0; }
+html.js [data-hero-letter], html.js [data-hero-line], html.js [data-hero-fade] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-anim],
+  html.js [data-hero-letter], html.js [data-hero-line], html.js [data-hero-fade] { opacity: 1; }
+}

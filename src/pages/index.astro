@@ -1,0 +1,26 @@
+---
+import Base from '@/layouts/Base.astro';
+import Preloader from '@/components/Preloader.astro';
+import Nav from '@/components/Nav.astro';
+import Hero from '@/components/Hero.astro';
+import Marquee from '@/components/Marquee.astro';
+import Historia from '@/components/Historia.astro';
+import LabPanels from '@/components/LabPanels.astro';
+import Numeros from '@/components/Numeros.astro';
+import Catalogos from '@/components/Catalogos.astro';
+import Footer from '@/components/Footer.astro';
+---
+<Base>
+  <Preloader />
+  <Nav />
+  <main>
+    <Hero />
+    <Marquee />
+    <Historia />
+    <LabPanels />
+    <Numeros />
+    <Catalogos />
+  </main>
+  <Footer />
+  <script src="@/scripts/animations.ts"></script>
+</Base>

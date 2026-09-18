@@ -1,0 +1,102 @@
+---
+import { site } from '@/data/site';
+import { labs } from '@/data/labs';
+
+const titles = ['Representante', 'Consultor', 'Parceiro', 'De balcão'];
+const nameLines = ['ROGÉRIO', 'DIAS'];
+const labCount = labs.length;
+---
+<section id="top" class="relative flex h-svh min-h-[480px] flex-col overflow-hidden">
+  <div class="relative z-30 flex flex-none flex-row flex-wrap items-start justify-between gap-[clamp(16px,3vw,48px)] px-gutter pt-[clamp(56px,7vh,104px)]">
+    <h2 class="m-0 font-display text-[max(20px,min(3.4vw,5.2vh))] leading-[1.05] uppercase tracking-[-0.01em] text-bone">
+      {titles.map((t, i) => (
+        <span class="block overflow-hidden">
+          <span data-hero-line class:list={['block', { 'text-coral': i === titles.length - 1 }]}>{t}</span>
+        </span>
+      ))}
+    </h2>
+    <p data-hero-fade class="m-0 max-w-[30ch] text-right font-sans text-[clamp(14px,2.2vh,17px)] leading-[1.55] text-mist-light [text-wrap:pretty]">
+      Representante comercial do grupo PBMED, responsável pela visita a clientes, do litoral norte ao litoral sul. 
+      Com mais de 6 anos atuando no mercado e atendendo as necessidades dos clientes parceiros.
+    </p>
+  </div>
+
+  <!--
+    Nome ocupa o espaço entre o bloco de títulos e o rodapé do hero: o maior tamanho em que
+    as duas linhas cabem inteiras, limitado a ~92% da largura útil. Ajustado em JS (fitHeroName).
+  -->
+  <h1
+    data-hero-name
+    class="relative z-10 flex min-h-0 w-full flex-auto flex-col items-center justify-start px-gutter pt-[clamp(10px,2vh,28px)] text-center font-display text-[min(28vw,36vh)] leading-[0.86] uppercase tracking-[-0.02em] text-coral"
+    aria-label={site.name}
+  >
+    {nameLines.map((line) => (
+      <span data-hero-name-line class="block whitespace-nowrap" aria-hidden="true">
+        {[...line].map((ch) => <span data-hero-letter class="inline-block">{ch}</span>)}
+      </span>
+    ))}
+  </h1>
+
+  <!-- Esmaece a base do nome no preto, como na referência -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-[30svh] bg-gradient-to-t from-ink via-ink/45 to-transparent"></div>
+
+  <!-- Retrato: centralizado, ancorado na base, à frente do nome e atrás dos textos de apoio -->
+  <div data-hero-photo class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex h-[min(75svh,calc(100vw/1.08))] justify-center will-change-transform">
+    <img
+      src="/assets/rogerio.webp"
+      alt={`${site.name}, representante do Grupo PBMED`}
+      width="1400"
+      height="1296"
+      fetchpriority="high"
+      decoding="async"
+      draggable="false"
+      class="h-full w-auto max-w-full select-none object-contain object-bottom [mask-image:linear-gradient(to_top,transparent_0,#000_9%)]"
+    />
+  </div>
+
+  <div class="relative z-30 flex min-h-[clamp(44px,6vh,64px)] flex-none flex-wrap items-end justify-between gap-4 px-gutter pt-[clamp(10px,1.4vh,22px)] pb-[clamp(12px,1.8vh,24px)]">
+    <div class="flex items-center gap-3">
+      <span class="h-px w-10 bg-coral"></span>
+      <span class="eyebrow whitespace-nowrap text-mist-light">Role para entrar</span>
+    </div>
+    <div class="flex flex-col items-end gap-1.5 text-right">
+      <span class="eyebrow text-[12.5px] text-mist-light">{site.city}</span>
+      <span class="eyebrow text-[12.5px] text-coral">{labCount} laboratórios</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  /*
+   * Ajusta o tamanho do nome: o maior font-size em que as duas linhas cabem na altura
+   * disponível do h1, sem a linha mais larga passar de 92% da largura útil.
+   */
+  const h1 = document.querySelector<HTMLElement>('[data-hero-name]');
+  const lines = Array.from(h1?.querySelectorAll<HTMLElement>('[data-hero-name-line]') ?? []);
+  const WIDTH_RATIO = 0.92;
+
+  function fitHeroName() {
+    if (!h1 || !lines.length) return;
+    const cs = getComputedStyle(h1);
+    const availW = h1.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const availH = h1.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+
+    h1.style.fontSize = '100px';
+    const rects = lines.map((l) => l.getBoundingClientRect());
+    const widest = Math.max(...rects.map((r) => r.width));
+    const totalH = rects.reduce((sum, r) => sum + r.height, 0);
+    if (widest <= 0 || totalH <= 0) return;
+
+    const byWidth = (100 * availW * WIDTH_RATIO) / widest;
+    const byHeight = (100 * availH) / totalH;
+    h1.style.fontSize = `${Math.min(byWidth, byHeight)}px`;
+  }
+
+  fitHeroName();
+  document.fonts?.ready.then(fitHeroName);
+  let raf = 0;
+  addEventListener('resize', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(fitHeroName);
+  });
+</script>

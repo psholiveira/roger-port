@@ -1,0 +1,44 @@
+---
+import SectionHead from '@/components/SectionHead.astro';
+import { catalogs, catalogHref, labBySlug, labLogo } from '@/data/labs';
+
+const cardClass =
+  'flex items-center justify-between gap-4 border border-line bg-card p-[22px] no-underline transition-[border-color,transform] duration-[340ms] ease-out-expo';
+---
+<section id="catalogos" class="border-t border-line px-gutter py-section">
+  <div class="flex flex-wrap items-end justify-between gap-6">
+    <SectionHead eyebrow="Downloads" title="Catálogos em PDF" />
+    <span data-anim class="eyebrow">Os demais envio no WhatsApp</span>
+  </div>
+
+  <div data-anim-group class="mt-[clamp(32px,4vw,64px)] grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
+    {catalogs.map((c) => {
+      const href = catalogHref(c);
+      const lab = labBySlug(c.lab);
+      const inner = (
+        <>
+          <span
+            class:list={[
+              'flex size-14 flex-none items-center justify-center overflow-hidden rounded-xl p-2',
+              lab?.dark ? 'bg-panel-dark' : 'bg-white',
+            ]}
+          >
+            <img src={labLogo(c.lab)} alt={lab?.name ?? c.title} loading="lazy" class="max-h-full max-w-full object-contain" />
+          </span>
+          <span class="flex min-w-0 flex-auto flex-col gap-[7px]">
+            <span class="font-display text-xl leading-[1.05] uppercase tracking-[-0.01em] text-bone">{c.title}</span>
+            <span class="font-sans text-xs font-medium leading-[1.2] uppercase tracking-[0.18em] text-steel">
+              {c.sub} · {href ? 'PDF' : 'em breve'}
+            </span>
+          </span>
+          <span class:list={['font-sans text-lg font-medium leading-none', href ? 'text-coral' : 'text-mist']}>{href ? '↓' : '·'}</span>
+        </>
+      );
+      return href ? (
+        <a data-anim href={href} target="_blank" rel="noopener" class:list={[cardClass, 'hover:-translate-y-1 hover:border-coral']}>{inner}</a>
+      ) : (
+        <div data-anim class:list={[cardClass, 'opacity-70']} title="Catálogo disponível em breve">{inner}</div>
+      );
+    })}
+  </div>
+</section>

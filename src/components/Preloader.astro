@@ -1,0 +1,15 @@
+---
+import { site } from '@/data/site';
+---
+<div
+  data-preloader
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-[100] hidden flex-wrap items-end justify-between gap-4 bg-ink p-gutter"
+>
+  <span data-preloader-label class="font-display text-[clamp(18px,2.4vw,30px)] leading-none uppercase tracking-[-0.01em] text-bone">
+    {site.fullName}
+  </span>
+  <span data-preloader-label class="font-display text-[clamp(56px,10vw,120px)] leading-none text-bone tabular-nums">
+    <span data-count>0</span><span class="text-coral">%</span>
+  </span>
+</div>
