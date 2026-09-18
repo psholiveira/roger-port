@@ -39,6 +39,8 @@ body {
 }
 ::selection { background: var(--color-coral); color: var(--color-ink); }
 img { display: block; max-width: 100%; }
+/* âncoras param abaixo do cabeçalho fixo (o JS faz o mesmo com scroll suave) */
+[id]:not(#top) { scroll-margin-top: 80px; }
 
 /* ── Utilitários de tipografia recorrentes ─────────────────────── */
 @utility eyebrow {

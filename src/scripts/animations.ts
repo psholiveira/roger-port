@@ -92,6 +92,7 @@ function marquee() {
 
 /* ── Âncoras: scroll suave até a seção ao clicar nos links da nav ─ */
 function smoothAnchors() {
+  const nav = document.querySelector<HTMLElement>('[data-nav] nav');
   document.addEventListener('click', (e) => {
     const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
     if (!a) return;
@@ -100,8 +101,10 @@ function smoothAnchors() {
     if (!target) return;
 
     e.preventDefault();
+    // a seção para logo abaixo do cabeçalho fixo, não escondida atrás dele
+    const offsetY = id === 'top' ? 0 : (nav?.offsetHeight ?? 0);
     // autoKill: se o usuário rolar no meio do caminho, a animação para
-    gsap.to(window, { scrollTo: { y: target, autoKill: true }, duration: 1.1, ease: EASE });
+    gsap.to(window, { scrollTo: { y: target, offsetY, autoKill: true }, duration: 1.1, ease: EASE });
     history.pushState(null, '', `#${id}`);
   });
 }
