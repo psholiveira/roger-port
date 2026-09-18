@@ -103,8 +103,9 @@ function smoothAnchors() {
     e.preventDefault();
     // a seção para logo abaixo do cabeçalho fixo, não escondida atrás dele
     const offsetY = id === 'top' ? 0 : (nav?.offsetHeight ?? 0);
-    // autoKill: se o usuário rolar no meio do caminho, a animação para
-    gsap.to(window, { scrollTo: { y: target, offsetY, autoKill: true }, duration: 1.1, ease: EASE });
+    // sem autoKill: no Safari iOS a barra de endereço recolhe no início do scroll e
+    // desloca a página sozinha, o que o autoKill interpretava como interrupção do usuário
+    gsap.to(window, { scrollTo: { y: target, offsetY, autoKill: false }, duration: 1.1, ease: EASE });
     history.pushState(null, '', `#${id}`);
   });
 }

@@ -44,7 +44,7 @@ const ctaClass = 'rounded-full bg-coral font-sans text-[13px] font-medium leadin
   <div
     data-nav-overlay
     aria-hidden="true"
-    class="invisible fixed inset-0 z-0 bg-ink/70 opacity-0 backdrop-blur-sm transition-[opacity,visibility] duration-500 group-data-open:pointer-events-auto group-data-open:visible group-data-open:opacity-100 md:hidden"
+    class="invisible fixed inset-0 z-0 touch-none bg-ink/70 opacity-0 backdrop-blur-sm transition-[opacity,visibility] duration-500 group-data-open:pointer-events-auto group-data-open:visible group-data-open:opacity-100 md:hidden"
   ></div>
 
   <!-- Mobile: menu lateral -->
@@ -52,7 +52,7 @@ const ctaClass = 'rounded-full bg-coral font-sans text-[13px] font-medium leadin
     id="nav-drawer"
     data-nav-drawer
     aria-hidden="true"
-    class="invisible fixed inset-y-0 right-0 z-10 flex w-[min(84vw,360px)] translate-x-full flex-col border-l border-line bg-card px-7 pt-[clamp(88px,14vh,120px)] pb-8 transition-[translate,visibility] duration-500 ease-out-expo group-data-open:pointer-events-auto group-data-open:visible group-data-open:translate-x-0 md:hidden"
+    class="invisible fixed inset-y-0 right-0 z-10 flex w-[min(84vw,360px)] translate-x-full flex-col overflow-y-auto overscroll-contain border-l border-line bg-card px-7 pt-[clamp(88px,14vh,120px)] pb-8 transition-[translate,visibility] duration-500 ease-out-expo group-data-open:pointer-events-auto group-data-open:visible group-data-open:translate-x-0 md:hidden"
   >
     <span class="eyebrow">Menu</span>
     <ul class="m-0 mt-5 list-none p-0">
@@ -91,8 +91,6 @@ const ctaClass = 'rounded-full bg-coral font-sans text-[13px] font-medium leadin
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
       drawer.setAttribute('aria-hidden', String(!open));
-      // trava o scroll da página enquanto o menu está aberto
-      document.documentElement.style.overflow = open ? 'hidden' : '';
     };
     const isOpen = () => header.hasAttribute('data-open');
 
