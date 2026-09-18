@@ -27,7 +27,7 @@ const labCount = labs.length;
   -->
   <h1
     data-hero-name
-    class="relative z-10 mt-auto flex w-full flex-none flex-col items-center justify-start px-gutter pt-[clamp(10px,2vh,28px)] md:mt-0 text-center font-display text-[min(28vw,36vh)] leading-[0.86] uppercase tracking-[-0.02em] text-coral md:min-h-0 md:flex-auto"
+    class="absolute inset-x-0 bottom-[36vw] z-[25] flex w-full flex-col items-center justify-start px-gutter text-center font-display text-[min(28vw,36vh)] leading-[0.86] uppercase tracking-[-0.02em] text-coral md:relative md:inset-x-auto md:bottom-auto md:z-10 md:min-h-0 md:flex-auto md:pt-[clamp(10px,2vh,28px)]"
     aria-label={site.name}
   >
     {nameLines.map((line) => (
@@ -41,7 +41,7 @@ const labCount = labs.length;
   <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 z-[15] hidden h-[30svh] bg-gradient-to-t from-ink via-ink/45 to-transparent md:block"></div>
 
   <!-- Retrato: centralizado, ancorado na base, à frente do nome e atrás dos textos de apoio -->
-  <div data-hero-photo class="pointer-events-none relative z-20 -mt-[32vw] flex h-[calc(120vw/1.08)] flex-none justify-center will-change-transform md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:h-[min(75svh,calc(100vw/1.08))]">
+  <div data-hero-photo class="pointer-events-none relative z-20 mt-auto flex h-[calc(140vw/1.08)] flex-none justify-center will-change-transform md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:h-[min(75svh,calc(100vw/1.08))]">
     <img
       src="/assets/rogerio.webp"
       alt={`${site.name}, representante do Grupo PBMED`}
