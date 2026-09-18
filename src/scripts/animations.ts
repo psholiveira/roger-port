@@ -106,12 +106,14 @@ function smoothAnchors() {
     // sem autoKill: no Safari iOS a barra de endereço recolhe no início do scroll e
     // desloca a página sozinha, o que o autoKill interpretava como interrupção do usuário
     gsap.to(window, { scrollTo: { y: target, offsetY, autoKill: false }, duration: 1.1, ease: EASE });
-    history.pushState(null, '', `#${id}`);
   });
 }
 
 /* ── Boot ───────────────────────────────────────────────────────── */
 const mm = gsap.matchMedia();
+
+// recarregou sem #hash: começa do topo (scrollRestoration=manual está no <head>)
+if (!location.hash) window.scrollTo(0, 0);
 
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   const heroAt = preloader();

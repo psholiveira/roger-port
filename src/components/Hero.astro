@@ -27,7 +27,7 @@ const labCount = labs.length;
   -->
   <h1
     data-hero-name
-    class="relative z-10 flex w-full flex-none flex-col items-center justify-start px-gutter pt-[clamp(10px,2vh,28px)] text-center font-display text-[min(28vw,36vh)] leading-[0.86] uppercase tracking-[-0.02em] text-coral md:min-h-0 md:flex-auto"
+    class="relative z-10 mt-auto flex w-full flex-none flex-col items-center justify-start px-gutter pt-[clamp(10px,2vh,28px)] md:mt-0 text-center font-display text-[min(28vw,36vh)] leading-[0.86] uppercase tracking-[-0.02em] text-coral md:min-h-0 md:flex-auto"
     aria-label={site.name}
   >
     {nameLines.map((line) => (
@@ -41,7 +41,7 @@ const labCount = labs.length;
   <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 z-[15] hidden h-[30svh] bg-gradient-to-t from-ink via-ink/45 to-transparent md:block"></div>
 
   <!-- Retrato: centralizado, ancorado na base, à frente do nome e atrás dos textos de apoio -->
-  <div data-hero-photo class="pointer-events-none relative z-20 -mt-[20vw] flex min-h-[calc(100vw/1.08)] flex-auto items-end justify-center will-change-transform md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:min-h-0 md:h-[min(75svh,calc(100vw/1.08))] md:flex-none">
+  <div data-hero-photo class="pointer-events-none relative z-20 -mt-[32vw] flex h-[calc(120vw/1.08)] flex-none justify-center will-change-transform md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:h-[min(75svh,calc(100vw/1.08))]">
     <img
       src="/assets/rogerio.webp"
       alt={`${site.name}, representante do Grupo PBMED`}
@@ -50,15 +50,11 @@ const labCount = labs.length;
       fetchpriority="high"
       decoding="async"
       draggable="false"
-      class="h-full w-auto max-w-none select-none object-contain object-bottom [mask-image:linear-gradient(to_top,transparent_0,#000_9%)] md:max-w-full"
+      class="h-full w-auto max-w-none shrink-0 select-none object-contain object-bottom [mask-image:linear-gradient(to_top,transparent_0,#000_9%)] md:max-w-full"
     />
   </div>
 
-  <div class="relative z-30 -mt-[clamp(44px,6vh,64px)] flex min-h-[clamp(44px,6vh,64px)] flex-none flex-wrap items-end justify-between gap-4 px-gutter pt-[clamp(10px,1.4vh,22px)] pb-[clamp(12px,1.8vh,24px)] md:mt-0">
-    <div class="flex items-center gap-3">
-      <span class="h-px w-10 bg-coral"></span>
-      <span class="eyebrow whitespace-nowrap text-mist-light">Role para entrar</span>
-    </div>
+  <div class="relative z-30 -mt-[clamp(44px,6vh,64px)] flex min-h-[clamp(44px,6vh,64px)] flex-none items-end justify-end px-gutter pt-[clamp(10px,1.4vh,22px)] pb-[clamp(12px,1.8vh,24px)] md:mt-0">
     <div class="flex flex-col items-end gap-1.5 text-right">
       <span class="eyebrow text-[12.5px] text-mist-light">{site.city}</span>
       <span class="eyebrow text-[12.5px] text-coral">{labCount} laboratórios</span>
