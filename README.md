@@ -3,7 +3,7 @@
 Site de uma página do representante comercial **Rogério Dias** (Grupo PBMED, João Pessoa · PB).
 Apresenta os 15 laboratórios representados, a trajetória profissional e os catálogos de produtos em PDF, com contato direto por WhatsApp.
 
-**Produção:** https://rogeriodias.vercel.app
+**Produção:** https://www.rogerioferreiradias.com
 
 ![Astro](https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
