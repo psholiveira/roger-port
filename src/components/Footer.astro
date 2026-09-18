@@ -32,12 +32,18 @@ import { site, waHref, emailHref } from '@/data/site';
         <p class="m-0 font-display text-[clamp(26px,3.25vw,52px)] leading-none uppercase tracking-[-0.01em] text-bone">{site.name}</p>
         <p class="eyebrow mt-4 mb-0 text-[12.5px] leading-[1.4]">{site.role}</p>
       </div>
-      <div class="flex min-w-0 items-center gap-3.5">
-        <span class="flex items-center rounded-md bg-white px-[11px] py-[7px]">
+      <a
+        href="https://www.grupopbmed.com.br/"
+        target="_blank"
+        rel="noopener"
+        title="Grupo PBMED — site oficial"
+        class="group flex min-w-0 items-center gap-3.5 no-underline"
+      >
+        <span class="flex items-center rounded-md bg-white px-[11px] py-[7px] transition-transform duration-[340ms] group-hover:-translate-y-0.5">
           <img src="/assets/logo-pbmed.webp" alt="Grupo PBMED Distribuidora" class="h-[18px] w-auto object-contain" />
         </span>
-        <span class="font-sans text-[13.5px] leading-[1.5] text-mist">Distribuidora farmacêutica</span>
-      </div>
+        <span class="font-sans text-[13.5px] leading-[1.5] text-mist transition-colors group-hover:text-bone">Distribuidora farmacêutica</span>
+      </a>
       <p class="m-0 font-sans md:justify-self-end md:text-right text-[12.5px] font-medium leading-[1.5] uppercase tracking-[0.18em] text-mist">
         © {new Date().getFullYear()} · {site.updatedLabel}
       </p>
