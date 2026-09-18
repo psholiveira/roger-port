@@ -41,7 +41,7 @@ const labCount = labs.length;
   <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-[30svh] bg-gradient-to-t from-ink via-ink/45 to-transparent"></div>
 
   <!-- Retrato: centralizado, ancorado na base, à frente do nome e atrás dos textos de apoio -->
-  <div data-hero-photo class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex h-[min(75svh,calc(100vw/1.08))] justify-center will-change-transform">
+  <div data-hero-photo class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex h-[62svh] justify-center will-change-transform md:h-[min(75svh,calc(100vw/1.08))]">
     <img
       src="/assets/rogerio.webp"
       alt={`${site.name}, representante do Grupo PBMED`}
@@ -50,7 +50,7 @@ const labCount = labs.length;
       fetchpriority="high"
       decoding="async"
       draggable="false"
-      class="h-full w-auto max-w-full select-none object-contain object-bottom [mask-image:linear-gradient(to_top,transparent_0,#000_9%)]"
+      class="h-full w-auto max-w-none select-none object-contain object-bottom [mask-image:linear-gradient(to_top,transparent_0,#000_9%)] md:max-w-full"
     />
   </div>
 
