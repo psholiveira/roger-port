@@ -6,7 +6,7 @@ const titles = ['Representante', 'Consultor', 'Parceiro', 'De balcão'];
 const nameLines = ['ROGÉRIO', 'DIAS'];
 const labCount = labs.length;
 ---
-<section id="top" class="relative flex h-svh min-h-[480px] flex-col overflow-hidden">
+<section id="top" class="relative flex min-h-svh flex-col overflow-hidden md:h-svh md:min-h-[480px]">
   <div class="relative z-30 flex flex-none flex-row flex-wrap items-start justify-between gap-[clamp(16px,3vw,48px)] px-gutter pt-[clamp(56px,7vh,104px)]">
     <h2 class="m-0 font-display text-[max(20px,min(3.4vw,5.2vh))] leading-[1.05] uppercase tracking-[-0.01em] text-bone">
       {titles.map((t, i) => (
@@ -15,7 +15,7 @@ const labCount = labs.length;
         </span>
       ))}
     </h2>
-    <p data-hero-fade class="m-0 max-w-[34ch] font-sans text-[clamp(14px,2.2vh,17px)] leading-[1.55] text-mist-light [text-wrap:pretty] md:max-w-[30ch] md:text-right">
+    <p data-hero-fade class="m-0 max-w-[34ch] font-sans text-[14px] leading-[1.5] text-mist-light [text-wrap:pretty] md:max-w-[30ch] md:text-[clamp(14px,2.2vh,17px)] md:text-right">
       Representante comercial do grupo PBMED, responsável pela visita a clientes, do litoral norte ao litoral sul. 
       Com mais de 6 anos atuando no mercado e atendendo as necessidades dos clientes parceiros.
     </p>
@@ -27,7 +27,7 @@ const labCount = labs.length;
   -->
   <h1
     data-hero-name
-    class="relative z-10 flex min-h-0 w-full flex-auto flex-col items-center justify-start px-gutter pt-[clamp(10px,2vh,28px)] text-center font-display text-[min(28vw,36vh)] leading-[0.86] uppercase tracking-[-0.02em] text-coral"
+    class="relative z-10 flex w-full flex-none flex-col items-center justify-start px-gutter pt-[clamp(10px,2vh,28px)] text-center font-display text-[min(28vw,36vh)] leading-[0.86] uppercase tracking-[-0.02em] text-coral md:min-h-0 md:flex-auto"
     aria-label={site.name}
   >
     {nameLines.map((line) => (
@@ -38,10 +38,10 @@ const labCount = labs.length;
   </h1>
 
   <!-- Esmaece a base do nome no preto, como na referência -->
-  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-[30svh] bg-gradient-to-t from-ink via-ink/45 to-transparent"></div>
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 bottom-0 z-[15] hidden h-[30svh] bg-gradient-to-t from-ink via-ink/45 to-transparent md:block"></div>
 
   <!-- Retrato: centralizado, ancorado na base, à frente do nome e atrás dos textos de apoio -->
-  <div data-hero-photo class="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex h-[62svh] justify-center will-change-transform md:h-[min(75svh,calc(100vw/1.08))]">
+  <div data-hero-photo class="pointer-events-none relative z-20 -mt-[20vw] flex min-h-[calc(100vw/1.08)] flex-auto items-end justify-center will-change-transform md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:min-h-0 md:h-[min(75svh,calc(100vw/1.08))] md:flex-none">
     <img
       src="/assets/rogerio.webp"
       alt={`${site.name}, representante do Grupo PBMED`}
@@ -54,7 +54,7 @@ const labCount = labs.length;
     />
   </div>
 
-  <div class="relative z-30 flex min-h-[clamp(44px,6vh,64px)] flex-none flex-wrap items-end justify-between gap-4 px-gutter pt-[clamp(10px,1.4vh,22px)] pb-[clamp(12px,1.8vh,24px)]">
+  <div class="relative z-30 -mt-[clamp(44px,6vh,64px)] flex min-h-[clamp(44px,6vh,64px)] flex-none flex-wrap items-end justify-between gap-4 px-gutter pt-[clamp(10px,1.4vh,22px)] pb-[clamp(12px,1.8vh,24px)] md:mt-0">
     <div class="flex items-center gap-3">
       <span class="h-px w-10 bg-coral"></span>
       <span class="eyebrow whitespace-nowrap text-mist-light">Role para entrar</span>
@@ -89,7 +89,9 @@ const labCount = labs.length;
 
     const byWidth = (100 * availW * WIDTH_RATIO) / widest;
     const byHeight = (100 * availH) / totalH;
-    h1.style.fontSize = `${Math.min(byWidth, byHeight)}px`;
+    // no mobile o h1 não é limitado em altura (flex-none): só a largura manda
+    const size = matchMedia('(min-width: 48rem)').matches ? Math.min(byWidth, byHeight) : byWidth;
+    h1.style.fontSize = `${size}px`;
   }
 
   fitHeroName();
