@@ -1,4 +1,6 @@
 ---
+import { site, waHref } from '@/data/site';
+
 const links = [
   { href: '#historia', label: 'História' },
   { href: '#portfolio', label: 'Portfólio' },
@@ -6,20 +8,105 @@ const links = [
   { href: '#catalogos', label: 'Catálogos' },
 ];
 const linkClass = 'font-sans text-[13px] font-medium leading-[1.2] uppercase tracking-[0.18em] text-mist no-underline transition-colors hover:text-bone';
+const ctaClass = 'rounded-full bg-coral font-sans text-[13px] font-medium leading-[1.2] uppercase tracking-[0.18em] text-ink no-underline transition-colors hover:bg-coral-light';
 ---
-<header class="pointer-events-none fixed inset-x-0 top-0 z-50">
-  <nav class="pointer-events-auto flex items-center justify-between gap-4 px-gutter py-[clamp(14px,1.5vw,24px)]">
-    <a href="#top" class="flex items-center gap-3 no-underline" aria-label="Voltar ao topo">
+<header data-nav class="group pointer-events-none fixed inset-x-0 top-0 z-50">
+  <nav class="pointer-events-auto relative z-20 flex items-center justify-between gap-4 px-gutter py-[clamp(14px,1.5vw,24px)]">
+    <a href="#top" class="flex items-center no-underline" aria-label="Voltar ao topo">
       <span class="flex items-center rounded-[5px] bg-white px-[9px] py-[5px]">
         <img src="/assets/logo-pbmed.webp" alt="Grupo PBMED Distribuidora" class="h-[15px] w-auto object-contain" />
       </span>
     </a>
-    <div class="flex flex-wrap items-center justify-end gap-[clamp(14px,2.4vw,40px)]">
+
+    <!-- Desktop: links inline -->
+    <div class="hidden items-center gap-[clamp(14px,2.4vw,40px)] md:flex">
       {links.map((l) => <a href={l.href} class={linkClass}>{l.label}</a>)}
-      <a
-        href="#contato"
-        class="rounded-full bg-coral px-4 py-2.5 font-sans text-[13px] font-medium leading-[1.2] uppercase tracking-[0.18em] text-ink no-underline transition-colors hover:bg-coral-light"
-      >Contato</a>
+      <a href="#contato" class:list={[ctaClass, 'px-4 py-2.5']}>Contato</a>
     </div>
+
+    <!-- Mobile: botão do menu -->
+    <button
+      type="button"
+      data-nav-toggle
+      aria-controls="nav-drawer"
+      aria-expanded="false"
+      aria-label="Abrir menu"
+      class="relative grid size-11 place-items-center rounded-full border border-line-strong bg-ink/60 backdrop-blur-sm md:hidden"
+    >
+      <span aria-hidden="true" class="relative block h-3.5 w-[18px]">
+        <span class="absolute inset-x-0 top-0 h-px bg-bone transition-transform duration-300 ease-out-expo group-data-open:translate-y-[6.5px] group-data-open:rotate-45"></span>
+        <span class="absolute inset-x-0 bottom-0 h-px bg-bone transition-transform duration-300 ease-out-expo group-data-open:-translate-y-[6.5px] group-data-open:-rotate-45"></span>
+      </span>
+    </button>
   </nav>
+
+  <!-- Mobile: fundo escurecido -->
+  <div
+    data-nav-overlay
+    aria-hidden="true"
+    class="invisible fixed inset-0 z-0 bg-ink/70 opacity-0 backdrop-blur-sm transition-[opacity,visibility] duration-500 group-data-open:pointer-events-auto group-data-open:visible group-data-open:opacity-100 md:hidden"
+  ></div>
+
+  <!-- Mobile: menu lateral -->
+  <aside
+    id="nav-drawer"
+    data-nav-drawer
+    aria-hidden="true"
+    class="invisible fixed inset-y-0 right-0 z-10 flex w-[min(84vw,360px)] translate-x-full flex-col border-l border-line bg-card px-7 pt-[clamp(88px,14vh,120px)] pb-8 transition-[translate,visibility] duration-500 ease-out-expo group-data-open:pointer-events-auto group-data-open:visible group-data-open:translate-x-0 md:hidden"
+  >
+    <span class="eyebrow">Menu</span>
+    <ul class="m-0 mt-5 list-none p-0">
+      {links.map((l, i) => (
+        <li class="border-t border-line last:border-b">
+          <a href={l.href} class="flex items-baseline gap-4 py-4 no-underline transition-colors active:text-coral">
+            <span class="font-sans text-[12px] font-medium tracking-[0.18em] text-coral tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+            <span class="font-display text-[clamp(30px,8vw,40px)] leading-none uppercase tracking-[-0.01em] text-bone">{l.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a href="#contato" class:list={[ctaClass, 'mt-8 flex justify-center px-5 py-4']}>Contato</a>
+
+    <div class="mt-auto flex flex-col gap-2 pt-8">
+      <a href={waHref} target="_blank" rel="noopener" class="font-sans text-[15px] font-medium leading-[1.3] text-bone no-underline">
+        {site.whatsappDisplay} <span class="text-coral">↗</span>
+      </a>
+      <span class="eyebrow text-[12px]">{site.city}</span>
+    </div>
+  </aside>
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-nav]');
+  const toggle = header?.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  const drawer = header?.querySelector<HTMLElement>('[data-nav-drawer]');
+  const overlay = header?.querySelector<HTMLElement>('[data-nav-overlay]');
+
+  if (header && toggle && drawer && overlay) {
+    const mdUp = matchMedia('(min-width: 48rem)');
+
+    const setOpen = (open: boolean) => {
+      header.toggleAttribute('data-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      drawer.setAttribute('aria-hidden', String(!open));
+      // trava o scroll da página enquanto o menu está aberto
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    };
+    const isOpen = () => header.hasAttribute('data-open');
+
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
+    overlay.addEventListener('click', () => setOpen(false));
+    drawer.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) setOpen(false);
+    });
+    addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) setOpen(false);
+    });
+    // ao alargar a janela (rotação do tablet, p.ex.) o menu inline volta e o drawer fecha
+    mdUp.addEventListener('change', (e) => {
+      if (e.matches && isOpen()) setOpen(false);
+    });
+  }
+</script>

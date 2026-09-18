@@ -11,7 +11,7 @@ const cardClass =
     <span data-anim class="eyebrow">Os demais envio no WhatsApp</span>
   </div>
 
-  <div data-anim-group class="mt-[clamp(32px,4vw,64px)] grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
+  <div data-anim-group class="mt-[clamp(32px,4vw,64px)] grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] gap-3">
     {catalogs.map((c) => {
       const href = catalogHref(c);
       const lab = labBySlug(c.lab);

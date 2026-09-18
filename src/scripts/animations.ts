@@ -1,7 +1,8 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 /** cubic-bezier(0.16,1,0.3,1) do site original ≈ expo.out */
 const EASE = 'expo.out';
@@ -89,6 +90,22 @@ function marquee() {
   gsap.to(track, { xPercent: -50, duration: 22, ease: 'none', repeat: -1 });
 }
 
+/* ── Âncoras: scroll suave até a seção ao clicar nos links da nav ─ */
+function smoothAnchors() {
+  document.addEventListener('click', (e) => {
+    const a = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href')!.slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    e.preventDefault();
+    // autoKill: se o usuário rolar no meio do caminho, a animação para
+    gsap.to(window, { scrollTo: { y: target, autoKill: true }, duration: 1.1, ease: EASE });
+    history.pushState(null, '', `#${id}`);
+  });
+}
+
 /* ── Boot ───────────────────────────────────────────────────────── */
 const mm = gsap.matchMedia();
 
@@ -97,6 +114,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
   heroIntro(heroAt);
   reveals();
   marquee();
+  smoothAnchors();
   ScrollTrigger.refresh();
 });
 
